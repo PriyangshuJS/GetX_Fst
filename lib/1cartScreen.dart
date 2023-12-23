@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getxfst/2OrderScreen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key});
@@ -6,16 +8,36 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Cart")),
+      appBar: AppBar(title: const Text("Cart")),
       body: Padding(
         padding: const EdgeInsets.all(30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CartItem(itemName: "Item 1"),
-            SizedBox(height: 16),
-            CartItem(itemName: "Item 2"),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(height: 10),
+              const CartItem(itemName: "Item 1"),
+              const SizedBox(height: 10),
+              const CartItem(itemName: "Item 2"),
+              SizedBox(height: MediaQuery.of(context).size.height / 4),
+              GestureDetector(
+                onTap: () {
+                  // Get.to(OrderScreen(item1: "Mac Book"));  // ---This works normally below is routing -
+                  Get.toNamed("\screen1", arguments: ["Mac Book"]);
+                },
+                child: Container(
+                  color: Colors.red,
+                  height: MediaQuery.of(context).size.height / 13,
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: const Center(
+                      child: Text(
+                    "Go to Order Screen",
+                    style: TextStyle(color: Colors.white),
+                  )),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -37,7 +59,7 @@ class _CartItemState extends State<CartItem> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 4,
+      height: MediaQuery.of(context).size.height / 7,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
